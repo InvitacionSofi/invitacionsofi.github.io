@@ -49,6 +49,26 @@
             pointer-events: none;
         }
 
+        .triangulo-play {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 12px solid white;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        margin-right: 8px;
+        vertical-align: middle;
+        }
+
+        .btn-musica.reproduciendo .triangulo-play {
+            border-left: none;
+            border-right: 2px solid white;
+            border-left: 2px solid white;
+            width: 10px;
+            height: 14px;
+            border-top: 0;
+            border-bottom: 0;
+        }
         .contenedorPrincipal{
             display:flex;
             flex-direction:column;
@@ -59,6 +79,42 @@
             max-width: 1200px;
             margin-top: 0 auto;
         }
+        
+        /* Botón de música */
+.seccion-musica {
+    text-align: center;
+}
+
+.btn-musica {
+    background: linear-gradient(135deg, #6b34c9, #4a1d96);
+    color: white;
+    border: none;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-family: 'GentleHearts', system-ui, sans-serif;
+    font-weight: bold;
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 52, 201, 0.4);
+    backdrop-filter: blur(2px);
+    letter-spacing: 1px;
+}
+
+.btn-musica:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(107, 52, 201, 0.6);
+    background: linear-gradient(135deg, #7e44e0, #5e2bb8);
+}
+
+.btn-musica.reproduciendo {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.btn-musica.reproduciendo:hover {
+    background: linear-gradient(135deg, #20B859, #075E54);
+}
 
         .contenedorPrincipal .invitacion{
             width: 100%;
@@ -194,6 +250,9 @@
                 <div class="caja-ejemplo">
                     <p>Estas cordialmente invitad@</p>
                 </div>
+                <button id="btnMusica" class="btn-musica">
+                    <span class="triangulo-play"></span> Reproducir
+                </button>
             </div>
         </div>
 
@@ -539,9 +598,77 @@
         
         // Iniciar todo
         inicializar();
+
+        // ========== CONTROL DE MÚSICA CON BOTÓN ==========
+const audio = document.getElementById('musicaFondo');
+const btnMusica = document.getElementById('btnMusica');
+
+// Función para actualizar el texto y estilo del botón
+function actualizarBotonMusica() {
+    if (!btnMusica) return;
+    
+    if (audio.paused) {
+        btnMusica.innerHTML = '🎵 Reproducir Música 🎵';
+        btnMusica.classList.remove('reproduciendo');
+    } else {
+        btnMusica.innerHTML = '⏸️ Pausar Música ⏸️';
+        btnMusica.classList.add('reproduciendo');
+    }
+}
+
+// Función para alternar reproducción
+function toggleMusica() {
+    if (!audio) return;
+    
+    if (audio.paused) {
+        audio.play()
+            .then(() => {
+                console.log("🎵 Música reproduciéndose");
+                actualizarBotonMusica();
+            })
+            .catch(error => {
+                console.error("Error al reproducir:", error);
+                alert("No se pudo reproducir la música. Por favor, intenta de nuevo.");
+            });
+    } else {
+        audio.pause();
+        console.log("⏸️ Música pausada");
+        actualizarBotonMusica();
+    }
+}
+
+// Configurar el evento del botón
+if (btnMusica) {
+    btnMusica.addEventListener('click', toggleMusica);
+}
+
+// Configurar el audio para que cuando termine (si no tiene loop) vuelva a empezar
+audio.loop = true; // Aseguramos que se repita
+
+// Al cargar la página, actualizar el estado del botón
+window.addEventListener('load', () => {
+    actualizarBotonMusica();
+});
+
+// Función para actualizar el texto y estilo del botón
+function actualizarBotonMusica() {
+    if (!btnMusica) return;
+    
+    if (audio.paused) {
+        btnMusica.innerHTML = '▶ Reproducir Música';  // ← Cambia esto
+        btnMusica.classList.remove('reproduciendo');
+    } else {
+        btnMusica.innerHTML = '⏸️ Pausar Música';     // ← Cambia esto
+        btnMusica.classList.add('reproduciendo');
+    }
+}
+
+        
     </script>
-    <audio id="musicaFondo" loop autoplay>
-        <source src="Himawari.mp3" type="audio/mpeg">
-    </audio>
+   
+    <audio id="musicaFondo" loop>
+    <source src="https://files.catbox.moe/p29ij6.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+</audio>
 </body>
 </html>
