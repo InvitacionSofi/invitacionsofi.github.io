@@ -18,7 +18,7 @@
             src: url(Sun\ Flower.otf);
         }
         @font-face {
-            font-family: AStarIsBorn;
+            fonft-family: AStarIsBorn;
             src: url(ASTAB___.TTF);
         }
         * {
@@ -329,9 +329,7 @@
                     <h1>🎁</h1>
                     <h3>Opciones de Regalo</h3>
                     <div class="caja-ejemplo">
-                        <p>Tu presencia es el mejor regalo</p>
-                        <p>Pero...</p>
-                        <p>Si me regalas sobres con dinero no me enojo</p>
+                        <p>Sobres con dinero ✉️</p>
                     </div>
                 </div>
          </div>
@@ -599,15 +597,22 @@
         // Iniciar todo
         inicializar();
 
-       // ========== CONTROL DE MÚSICA CON BOTÓN ==========
+     // ========== CONTROL DE MÚSICA CON BOTÓN (VERSIÓN MEJORADA) ==========
 const audio = document.getElementById('musicaFondo');
 const btnMusica = document.getElementById('btnMusica');
+let audioListo = false;
 
-// Función para actualizar el botón (manteniendo el triángulo)
+// Función para actualizar el botón
 function actualizarBotonMusica() {
     if (!btnMusica) return;
     
-    // Mantenemos la estructura del triángulo
+    if (!audioListo) {
+        btnMusica.innerHTML = '<span class="triangulo-play"></span> Cargando...';
+        btnMusica.disabled = true;
+        return;
+    }
+    
+    btnMusica.disabled = false;
     if (audio.paused) {
         btnMusica.innerHTML = '<span class="triangulo-play"></span> Reproducir Música';
         btnMusica.classList.remove('reproduciendo');
@@ -619,7 +624,7 @@ function actualizarBotonMusica() {
 
 // Función para alternar reproducción
 function toggleMusica() {
-    if (!audio) return;
+    if (!audio || !audioListo) return;
     
     if (audio.paused) {
         audio.play()
@@ -629,7 +634,6 @@ function toggleMusica() {
             })
             .catch(error => {
                 console.error("Error al reproducir:", error);
-                // En móviles, a veces necesita interacción del usuario primero
                 alert("Toca el botón nuevamente para reproducir la música 🎵");
             });
     } else {
@@ -639,21 +643,34 @@ function toggleMusica() {
     }
 }
 
+// Evento: cuando el audio esté listo para reproducirse
+audio.addEventListener('canplaythrough', function() {
+    audioListo = true;
+    audio.loop = true;
+    actualizarBotonMusica();
+    console.log("✅ Audio listo para reproducir");
+});
+
+// Evento: si el audio falla al cargar
+audio.addEventListener('error', function(e) {
+    console.error("❌ Error al cargar el audio:", e);
+    btnMusica.innerHTML = '⚠️ Error al cargar música';
+    btnMusica.disabled = true;
+});
+
 // Configurar el evento del botón
 if (btnMusica) {
     btnMusica.addEventListener('click', toggleMusica);
 }
 
-// Asegurar loop
-audio.loop = true;
-
-// Estado inicial del botón
+// Estado inicial
 actualizarBotonMusica();
         
     </script>
    
     <audio id="musicaFondo" loop>
-    <source src="Himawari.mp3" type="audio/mpeg">
+    <source src="https://files.catbox.moe/p29ij6.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
     </audio>
 </body>
 </html>
