@@ -18,7 +18,7 @@
             src: url(Sun\ Flower.otf);
         }
         @font-face {
-            fonft-family: AStarIsBorn;
+            font-family: AStarIsBorn;
             src: url(ASTAB___.TTF);
         }
         * {
@@ -175,7 +175,7 @@
             font-family: GentleHearts;
             text-align: center;
             color: #1e2573;
-            font-size: clamp(1rem, 4vw, 1.3rem);
+            font-size: clamp(2rem, 4vw, 1.3rem);
             line-height: 1.5;
         }
 
@@ -191,6 +191,20 @@
             font-family: SunFlower;
             text-align: center;
             color: #1e2573;
+        }
+        .seccionMapa iframe{
+            width:100%;
+            max-width:100%;
+            height:auto;
+            aspect-ratio:16/9;
+            border-radius:16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        @media (max-width:480px){
+            .seccionMapa iframe{
+                aspect-ratio:4/3;
+                border-radius:12px;
+            }
         }
        
         .separador{
@@ -255,14 +269,14 @@
 
         <div class="invitacion seccionMomentos" style="margin-top: 60px;" >
             <div class="contenidoMomentos">
-                <p>Hay momentos que nunca olvidamos y
-                    que siempre llevamos en el corazón.</p>
-                    <p></p>
-                 <p>Por eso, me encantaría que compartieras 
-                    conmigo este día tan especial.</p>
+                <h1>Hay momentos que nunca olvidamos y
+                    que siempre llevamos en el corazón.</h1>
+                    <br>
+                 <h1>Por eso, me encantaría que compartieras 
+                    conmigo este día tan especial.</h1>
              </div>
              <div class="caja-ejemplo">
-                <p><b>Con la bendicion de dios y de </b></p>
+                <h1><b>Con la bendicion de </b></h1>
                 <br>
                 <h1>mis padres: </h1>
                 <br>
@@ -286,7 +300,7 @@
          <div class="invitacion seccionMapa" style="margin-top: 130px;">
             <h2>Locación: </h2>
             <br>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.2363571680876!2d-100.8937976!3d25.430360399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86880d6c8fc8b311%3A0x2d5a2e58bf15323b!2sQuinta%20115!5e0!3m2!1ses!2smx!4v1781486700375!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.2363571680876!2d-100.8937976!3d25.430360399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86880d6c8fc8b311%3A0x2d5a2e58bf15323b!2sQuinta%20115!5e0!3m2!1ses!2smx!4v1781486700375!5m2!1ses!2smx" width="100%" height="100%" style="border:0;min-height:300px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             <br>
             <br>
             <p>Quinta <b>115</b>, Sexta Nogal, Arteaga, <b>25385</b>, Coah, MX</p>
@@ -324,10 +338,7 @@
                 <div class="seccionRegalo">
                     <br>
                     <h1>🎁</h1>
-                    <h3>Opciones de Regalo</h3>
-                    <div class="caja-ejemplo">
-                        <p>Sobres con dinero ✉️</p>
-                    </div>
+                    <h3>Lluvia de Sobres ✉️</h3>
                 </div>
          </div>
          <div class="invitacion seccion-whatsapp">
