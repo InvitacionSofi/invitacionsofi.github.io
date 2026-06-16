@@ -250,9 +250,9 @@
                 <div class="caja-ejemplo">
                     <p>Estas cordialmente invitad@</p>
                 </div>
-                <button id="btnMusica" class="btn-musica">
-                    <span class="triangulo-play"></span> Reproducir
-                </button>
+               <button id="btnMusica" class="btn-musica">
+    <span class="triangulo-play"></span> Reproducir
+</button>
             </div>
         </div>
 
@@ -599,19 +599,20 @@
         // Iniciar todo
         inicializar();
 
-        // ========== CONTROL DE MÚSICA CON BOTÓN ==========
+       // ========== CONTROL DE MÚSICA CON BOTÓN ==========
 const audio = document.getElementById('musicaFondo');
 const btnMusica = document.getElementById('btnMusica');
 
-// Función para actualizar el texto y estilo del botón
+// Función para actualizar el botón (manteniendo el triángulo)
 function actualizarBotonMusica() {
     if (!btnMusica) return;
     
+    // Mantenemos la estructura del triángulo
     if (audio.paused) {
-        btnMusica.innerHTML = '🎵 Reproducir Música 🎵';
+        btnMusica.innerHTML = '<span class="triangulo-play"></span> Reproducir Música';
         btnMusica.classList.remove('reproduciendo');
     } else {
-        btnMusica.innerHTML = '⏸️ Pausar Música ⏸️';
+        btnMusica.innerHTML = '<span class="triangulo-play"></span> Pausar Música';
         btnMusica.classList.add('reproduciendo');
     }
 }
@@ -628,7 +629,8 @@ function toggleMusica() {
             })
             .catch(error => {
                 console.error("Error al reproducir:", error);
-                alert("No se pudo reproducir la música. Por favor, intenta de nuevo.");
+                // En móviles, a veces necesita interacción del usuario primero
+                alert("Toca el botón nuevamente para reproducir la música 🎵");
             });
     } else {
         audio.pause();
@@ -642,32 +644,16 @@ if (btnMusica) {
     btnMusica.addEventListener('click', toggleMusica);
 }
 
-// Configurar el audio para que cuando termine (si no tiene loop) vuelva a empezar
-audio.loop = true; // Aseguramos que se repita
+// Asegurar loop
+audio.loop = true;
 
-// Al cargar la página, actualizar el estado del botón
-window.addEventListener('load', () => {
-    actualizarBotonMusica();
-});
-
-// Función para actualizar el texto y estilo del botón
-function actualizarBotonMusica() {
-    if (!btnMusica) return;
-    
-    if (audio.paused) {
-        btnMusica.innerHTML = '▶ Reproducir Música';  // ← Cambia esto
-        btnMusica.classList.remove('reproduciendo');
-    } else {
-        btnMusica.innerHTML = '⏸️ Pausar Música';     // ← Cambia esto
-        btnMusica.classList.add('reproduciendo');
-    }
-}
-
+// Estado inicial del botón
+actualizarBotonMusica();
         
     </script>
    
     <audio id="musicaFondo" loop>
-    <source src="https://files.catbox.moe/p29ij6.mp3" type="audio/mpeg">
+    <source src="Himawari.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
 </audio>
 </body>
